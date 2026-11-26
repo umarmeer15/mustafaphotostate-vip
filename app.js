@@ -22,7 +22,7 @@ const firebaseConfig = {
   measurementId: "G-C917FGSGMS"
 };
 
-const OWNER_PIN = "1234";
+const OWNER_PIN = "mustafa150150";
 const LOCAL_STORAGE_KEY = "mustafaphotostate_loyalty_customers_v1";
 const VIP_DURATION_MS = 180 * 24 * 60 * 60 * 1000; // 6 months (180 days)
 const MAX_STAMPS = 10;
