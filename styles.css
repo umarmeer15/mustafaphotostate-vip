@@ -1,0 +1,211 @@
+/* ==========================================================================
+   mustafaphotostate — Handcrafted Warm Stationery & Royal Emerald/Gold VIP
+   ========================================================================== */
+
+:root {
+  --bg-stationery: #FAF7F2;
+  --surface-paper: #FFFDF9;
+  --ink-primary: #1C1917;
+  --emerald-royal: #0F766E;
+  --emerald-dark: #064E3B;
+  --gold-vip: #D4AF37;
+  --gold-light: #F3E5AB;
+}
+
+/* Subtle handcrafted paper texture background */
+body {
+  background-color: var(--bg-stationery);
+  background-image:
+    radial-gradient(rgba(15, 118, 110, 0.045) 1px, transparent 1px),
+    radial-gradient(rgba(212, 175, 55, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+}
+
+/* Paper card surface */
+.paper-card {
+  background-color: var(--surface-paper);
+  border: 1px solid rgba(214, 206, 194, 0.75);
+  box-shadow:
+    0 1px 2px rgba(28, 25, 23, 0.04),
+    0 10px 28px -12px rgba(28, 25, 23, 0.08);
+}
+
+/* Standard Loyalty Card (0-9 Stamps) */
+.loyalty-card-standard {
+  background: linear-gradient(145deg, #FFFDF9 0%, #F7F2E8 100%);
+  border: 1.5px solid rgba(15, 118, 110, 0.25);
+  box-shadow:
+    0 14px 34px -14px rgba(15, 118, 110, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* VIP Loyalty Card (10/10 Permanent Emerald & Champagne Gold) */
+.loyalty-card-vip {
+  background: linear-gradient(135deg, #042F2E 0%, #064E3B 45%, #0B3B35 78%, #022221 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.75);
+  box-shadow:
+    0 20px 45px -12px rgba(6, 78, 59, 0.55),
+    0 0 0 1px rgba(243, 229, 171, 0.15) inset;
+  color: #FAF7F2;
+}
+
+.loyalty-card-vip::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(243, 229, 171, 0.10) 48%,
+    rgba(212, 175, 55, 0.18) 50%,
+    rgba(243, 229, 171, 0.08) 52%,
+    transparent 65%
+  );
+  transform: translateX(-100%) rotate(12deg);
+  animation: vip-foil-sheen 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes vip-foil-sheen {
+  0%, 55% {
+    transform: translateX(-85%) rotate(12deg);
+  }
+  100% {
+    transform: translateX(95%) rotate(12deg);
+  }
+}
+
+/* VIP Gold Text Gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #F7E7B4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Stamp Circle States */
+.stamp-circle {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease;
+}
+
+.stamp-circle-earned {
+  background: linear-gradient(135deg, #0F766E 0%, #064E3B 100%);
+  border: 2px solid #D4AF37;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px -2px rgba(15, 118, 110, 0.35);
+  animation: stamp-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stamp-circle-vip {
+  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%);
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  color: #042F2E;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+}
+
+.stamp-circle-empty {
+  background-color: rgba(250, 247, 242, 0.9);
+  border: 2px dashed rgba(15, 118, 110, 0.28);
+  color: rgba(107, 101, 94, 0.65);
+}
+
+@keyframes stamp-pop {
+  0% {
+    transform: scale(0.75);
+  }
+  65% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Avatar Template Selection Cards */
+.avatar-tpl-card {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.avatar-tpl-card:hover {
+  transform: translateY(-2px);
+}
+
+.avatar-tpl-card.selected {
+  border-color: #0F766E;
+  background-color: rgba(15, 118, 110, 0.08);
+  box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.25);
+}
+
+.avatar-cat-pill.active {
+  background-color: #0F766E;
+  color: #FFFFFF;
+  border-color: #0F766E;
+}
+
+.backdrop-swatch {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.backdrop-swatch.selected {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px #FFFDF9, 0 0 0 4px #0F766E;
+}
+
+/* Owner Tabs */
+.owner-tab {
+  color: #57534E;
+}
+
+.owner-tab.active {
+  background-color: #FFFFFF;
+  color: #0F766E;
+  box-shadow: 0 2px 6px rgba(28, 25, 23, 0.08);
+}
+
+/* View Entrance Animation */
+.animate-fade-in {
+  animation: fade-slide-up 0.28s ease-out;
+}
+
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Avatar Randomize Bounce */
+.avatar-bounce {
+  animation: avatar-bounce-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes avatar-bounce-pop {
+  0% { transform: scale(0.86) rotate(-4deg); }
+  55% { transform: scale(1.06) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Utility: Hide scrollbars cleanly */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(120, 113, 108, 0.28);
+  border-radius: 9999px;
+}
