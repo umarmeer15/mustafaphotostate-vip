@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>mustafaphotostate — Print Studio & VIP Loyalty Card</title>
-  <meta name="description" content="Collect 10 stamps by referring friends at mustafaphotostate and unlock your 6-Month VIP Loyalty Pass." />
+  <meta name="description" content="Collect 6 stamps by referring friends at mustafaphotostate and unlock your 6-Month VIP Loyalty Pass." />
   <meta name="theme-color" content="#0F766E" />
 
   <!-- Google Fonts -->
@@ -127,7 +127,7 @@
           </h1>
 
           <p class="text-sm text-muted leading-relaxed">
-            Create your free digital loyalty card in seconds—no phone number needed. Collect <strong>10 stamp circles</strong> to unlock your exclusive Emerald &amp; Gold VIP Pass!
+            Create your free digital loyalty card in seconds—no phone number needed. Collect <strong>6 stamp circles</strong> to unlock your exclusive Emerald &amp; Gold VIP Pass!
           </p>
 
           <!-- Referral Auto-Detected Banner (Hidden unless ?ref=CODE present) -->
@@ -190,7 +190,7 @@
             <i data-lucide="crown" class="w-4 h-4"></i>
           </div>
           <p class="text-[11px] font-bold text-ink">3. Go VIP</p>
-          <p class="text-[10px] text-muted mt-0.5">10 stamps = 6 Mo VIP</p>
+          <p class="text-[10px] text-muted mt-0.5">6 stamps = 6 Mo VIP</p>
         </div>
       </div>
     </section>
@@ -338,12 +338,12 @@
         </span>
       </div>
 
-      <!-- Loyalty Card Container (Standard 0-9 OR VIP 10/10) -->
+      <!-- Loyalty Card Container (Standard 0-5 OR VIP 6/6) -->
       <div id="loyalty-card-shell" class="rounded-3xl p-5 sm:p-6 transition-all duration-500 relative overflow-hidden">
         <!-- Populated dynamically by app.js -->
       </div>
 
-      <!-- Below Card: Referral Info (ONLY shown for 0-9 stamps) -->
+      <!-- Below Card: Referral Info (ONLY shown for 0-5 stamps) -->
       <div id="card-referral-box" class="hidden paper-card rounded-3xl p-5 space-y-3.5 text-center">
         <div class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-2xl bg-emeraldRoyal/10 border border-emeraldRoyal/25">
           <span class="text-[11px] font-bold uppercase tracking-wider text-emeraldRoyal">Your Code</span>
@@ -415,7 +415,7 @@
             <span id="stat-total" class="font-serif text-2xl font-bold text-ink mt-0.5 block">0</span>
           </div>
           <div class="paper-card rounded-2xl p-3.5 text-center border-emeraldRoyal/25">
-            <span class="block text-[11px] font-bold uppercase tracking-wider text-emeraldRoyal">Active (0-9)</span>
+            <span class="block text-[11px] font-bold uppercase tracking-wider text-emeraldRoyal">Active (0-5)</span>
             <span id="stat-active" class="font-serif text-2xl font-bold text-emeraldDark mt-0.5 block">0</span>
           </div>
           <div class="rounded-2xl p-3.5 text-center bg-gradient-to-br from-emeraldDark to-stone-900 text-goldVip border border-goldVip/40 shadow-sm">
@@ -440,12 +440,12 @@
           <button id="tab-in-progress" type="button"
             class="owner-tab active py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
             <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-            <span>In Progress (0-9)</span>
+            <span>In Progress (0-5)</span>
           </button>
           <button id="tab-vip-record" type="button"
             class="owner-tab py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
             <i data-lucide="crown" class="w-3.5 h-3.5"></i>
-            <span>VIP Record (10/10)</span>
+            <span>VIP Record (6/6)</span>
           </button>
         </div>
 

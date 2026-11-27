@@ -25,7 +25,7 @@ const firebaseConfig = {
 const OWNER_PIN = "mustafa150150";
 const LOCAL_STORAGE_KEY = "mustafaphotostate_loyalty_customers_v1";
 const VIP_DURATION_MS = 180 * 24 * 60 * 60 * 1000; // 6 months (180 days)
-const MAX_STAMPS = 10;
+const MAX_STAMPS = 6;
 
 /* ==========================================================================
    2. SNAPCHAT-STYLE TEMPLATE-ONLY SVG AVATAR STUDIO
@@ -1106,8 +1106,8 @@ function renderExistingSearchResults(query) {
         <div class="shrink-0 flex items-center gap-2">
           ${
             isVip
-              ? `<span class="px-2.5 py-1 rounded-full bg-emeraldDark text-goldVip border border-goldVip/50 text-[11px] font-bold">VIP 10/10</span>`
-              : `<span class="px-2.5 py-1 rounded-full bg-emeraldRoyal/10 text-emeraldDark text-[11px] font-bold">${c.stamps || 0}/10 Stamps</span>`
+              ? `<span class="px-2.5 py-1 rounded-full bg-emeraldDark text-goldVip border border-goldVip/50 text-[11px] font-bold">VIP ${MAX_STAMPS}/${MAX_STAMPS}</span>`
+              : `<span class="px-2.5 py-1 rounded-full bg-emeraldRoyal/10 text-emeraldDark text-[11px] font-bold">${c.stamps || 0}/${MAX_STAMPS} Stamps</span>`
           }
           <i data-lucide="chevron-right" class="w-4 h-4 text-stone-400"></i>
         </div>
@@ -1171,20 +1171,20 @@ function renderActiveLoyaltyCard() {
   const stamps = Math.min(MAX_STAMPS, Math.max(0, customer.stamps || 0));
   const isVip = stamps >= MAX_STAMPS;
 
-  // Build 10 Stamp Circles
+  // Build 6 Stamp Circles (Star icon for earned stamps)
   const circlesHtml = Array.from({ length: MAX_STAMPS }, (_, i) => {
     const filled = i < stamps;
     if (isVip) {
       return `
         <div class="stamp-circle stamp-circle-vip aspect-square rounded-full flex items-center justify-center font-bold text-xs">
-          <i data-lucide="crown" class="w-4 h-4"></i>
+          <i data-lucide="star" class="w-5 h-5 fill-current"></i>
         </div>
       `;
     }
     if (filled) {
       return `
         <div class="stamp-circle stamp-circle-earned aspect-square rounded-full flex items-center justify-center font-bold text-xs">
-          <i data-lucide="check" class="w-4 h-4 stroke-[2.75]"></i>
+          <i data-lucide="star" class="w-5 h-5 fill-current"></i>
         </div>
       `;
     }
@@ -1196,7 +1196,7 @@ function renderActiveLoyaltyCard() {
   }).join("");
 
   if (isVip) {
-    // PERMANENT EMERALD & GOLD VIP PASS (10/10)
+    // PERMANENT EMERALD & GOLD VIP PASS (6/6)
     const unlockedAt = customer.vipUnlockedAt || customer.createdAt || Date.now();
     const expiresAt = customer.vipExpiresAt || unlockedAt + VIP_DURATION_MS;
 
@@ -1220,12 +1220,12 @@ function renderActiveLoyaltyCard() {
           <div class="min-w-0">
             <p class="text-[10px] uppercase tracking-widest text-emerald-200/80 font-bold">mustafaphotostate VIP</p>
             <h3 class="font-serif text-xl sm:text-2xl font-bold text-gold-gradient truncate">${escapeHtml(customer.name)}</h3>
-            <p class="text-[11px] text-emerald-100/80 font-medium mt-0.5">10/10 Circles Completed &bull; Permanent VIP Status</p>
+            <p class="text-[11px] text-emerald-100/80 font-medium mt-0.5">${MAX_STAMPS}/${MAX_STAMPS} Circles Completed &bull; Permanent VIP Status</p>
           </div>
         </div>
 
-        <!-- 10 Completed Gold Circles -->
-        <div class="grid grid-cols-5 gap-2.5 pt-1">
+        <!-- 6 Completed Gold Circles -->
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-3 pt-1">
           ${circlesHtml}
         </div>
 
@@ -1264,7 +1264,7 @@ function renderActiveLoyaltyCard() {
     updateCountdownDigits(expiresAt);
     state.countdownInterval = setInterval(() => updateCountdownDigits(expiresAt), 1000);
   } else {
-    // STANDARD LOYALTY CARD (0-9 STAMPS)
+    // STANDARD LOYALTY CARD (0-5 STAMPS)
     shell.className = "loyalty-card-standard rounded-3xl p-5 sm:p-6 relative overflow-hidden";
     shell.innerHTML = `
       <div class="relative z-10 space-y-5">
@@ -1289,8 +1289,8 @@ function renderActiveLoyaltyCard() {
           </div>
         </div>
 
-        <!-- 10 Stamp Circles -->
-        <div class="grid grid-cols-5 gap-2.5 pt-1">
+        <!-- 6 Stamp Circles -->
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-3 pt-1">
           ${circlesHtml}
         </div>
 
@@ -1399,7 +1399,7 @@ function renderOwnerPanel() {
     if (!filtered.length) {
       listContainer.innerHTML = `
         <div class="paper-card rounded-2xl p-8 text-center text-xs text-muted">
-          ${q ? `No active customers matching "${escapeHtml(state.ownerSearch.trim())}".` : "No active (0–9) customers yet."}
+          ${q ? `No active customers matching "${escapeHtml(state.ownerSearch.trim())}".` : "No active (0–5) customers yet."}
         </div>
       `;
       return;
@@ -1431,10 +1431,10 @@ function renderOwnerPanel() {
                 <p class="text-[11px] text-muted mt-0.5">${referredText}</p>
               </div>
             </div>
-            <span class="shrink-0 text-xs font-extrabold text-emeraldRoyal font-mono">${stamps}/10</span>
+            <span class="shrink-0 text-xs font-extrabold text-emeraldRoyal font-mono">${stamps}/${MAX_STAMPS}</span>
           </div>
 
-          <!-- 10-Bar Progress Meter -->
+          <!-- 6-Bar Progress Meter -->
           <div class="flex items-center gap-1">
             ${bars}
           </div>
@@ -1484,7 +1484,7 @@ function renderOwnerPanel() {
     if (!filteredVips.length) {
       listContainer.innerHTML = `
         <div class="paper-card rounded-2xl p-8 text-center text-xs text-muted">
-          ${q ? `No VIP members matching "${escapeHtml(state.ownerSearch.trim())}".` : "No VIPs unlocked yet (10/10 circles required)."}
+          ${q ? `No VIP members matching "${escapeHtml(state.ownerSearch.trim())}".` : `No VIPs unlocked yet (${MAX_STAMPS}/${MAX_STAMPS} circles required).`}
         </div>
       `;
       return;
@@ -1508,7 +1508,7 @@ function renderOwnerPanel() {
                   <p class="font-serif font-bold text-base text-goldLight truncate">${escapeHtml(c.name)}</p>
                   <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded-md bg-white/10 text-goldLight">${escapeHtml(c.code)}</span>
                 </div>
-                <p class="text-[11px] text-emerald-100/80">10/10 VIP Pass &bull; Permanent Record</p>
+                <p class="text-[11px] text-emerald-100/80">${MAX_STAMPS}/${MAX_STAMPS} VIP Pass &bull; Permanent Record</p>
               </div>
             </div>
 
@@ -1544,7 +1544,7 @@ async function adjustCustomerStamps(customerId, delta) {
   const customer = state.customers.find((c) => c.id === customerId);
   if (!customer) return;
 
-  // Never reset or alter a permanent 10/10 VIP card
+  // Never reset or alter a permanent 6/6 VIP card
   if ((customer.stamps || 0) >= MAX_STAMPS) {
     showToast("VIP Pass is permanent and cannot be reset.", "info");
     return;
@@ -1562,9 +1562,9 @@ async function adjustCustomerStamps(customerId, delta) {
   try {
     await persistCustomerUpdate(customerId, updates);
     if (nextStamps === MAX_STAMPS) {
-      showToast(`${customer.name} reached 10/10! 6-Month VIP unlocked!`, "success");
+      showToast(`${customer.name} reached ${MAX_STAMPS}/${MAX_STAMPS}! 6-Month VIP unlocked!`, "success");
     } else {
-      showToast(`Updated ${customer.name}: ${nextStamps}/10 stamps`, "info");
+      showToast(`Updated ${customer.name}: ${nextStamps}/${MAX_STAMPS} stamps`, "info");
     }
   } catch (err) {
     console.error(err);
