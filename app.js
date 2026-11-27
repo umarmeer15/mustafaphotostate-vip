@@ -1497,6 +1497,7 @@ function renderOwnerPanel() {
         const remainingMs = Math.max(0, expiresAt - Date.now());
         const remainingDays = Math.ceil(remainingMs / (24 * 60 * 60 * 1000));
         const isExpired = remainingMs <= 0;
+        const isConfirmingDelete = state.pendingDeleteId === c.id;
 
         return `
         <div class="rounded-2xl p-4 bg-gradient-to-br from-emeraldDark to-stone-900 text-white border border-goldVip/50 shadow-md space-y-3">
@@ -1530,6 +1531,32 @@ function renderOwnerPanel() {
               <span class="block text-emerald-200/70 text-[10px] uppercase tracking-wider">6-Month Expiry</span>
               <strong class="text-goldLight font-semibold">${formatDate(expiresAt)}</strong>
             </div>
+          </div>
+
+          <!-- Delete VIP Customer Control -->
+          <div class="flex items-center justify-end pt-1">
+            ${
+              isConfirmingDelete
+                ? `
+              <div class="flex items-center gap-1.5">
+                <button type="button" data-confirm-delete="${c.id}"
+                  class="px-3 py-1.5 rounded-xl bg-rose-600 text-white text-[11px] font-bold hover:bg-rose-700 active:scale-95 transition">
+                  Confirm Delete
+                </button>
+                <button type="button" data-cancel-delete="1"
+                  class="px-3 py-1.5 rounded-xl bg-white/10 text-emerald-100 text-[11px] font-bold hover:bg-white/20 transition">
+                  Cancel
+                </button>
+              </div>
+            `
+                : `
+              <button type="button" data-ask-delete="${c.id}" title="Delete VIP Customer"
+                class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-rose-200/80 hover:text-rose-100 hover:bg-rose-500/20 text-[11px] font-semibold transition">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                <span>Delete</span>
+              </button>
+            `
+            }
           </div>
         </div>
       `;
